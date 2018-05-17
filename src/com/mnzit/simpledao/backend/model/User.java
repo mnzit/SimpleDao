@@ -11,21 +11,39 @@ package com.mnzit.simpledao.backend.model;
  */
 public class User {
 
-    private String uname, upass, ugender;
-    private int uid, uage;
+    private String uname, upass, ugender, deptname;
+    private int uid, deptid, uage;
     private long uphone;
 
     public User() {
 
     }
 
-    public User(String uname, String upass, String ugender, int uage, long uphone, int uid) {
+    public User(String uname, String upass, String ugender, int uage, long uphone, int uid, int deptid, String deptname) {
         this.uname = uname;
         this.upass = upass;
         this.ugender = ugender;
         this.uage = uage;
         this.uphone = uphone;
         this.uid = uid;
+        this.deptid = deptid;
+        this.deptname = deptname;
+    }
+
+    public String getDeptname() {
+        return deptname;
+    }
+
+    public void setDeptname(String deptname) {
+        this.deptname = deptname;
+    }
+
+    public int getDeptid() {
+        return deptid;
+    }
+
+    public void setDeptid(int deptid) {
+        this.deptid = deptid;
     }
 
     public int getUid() {

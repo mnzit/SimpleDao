@@ -12,4 +12,5 @@ package com.mnzit.simpledao.backend.util;
 public class DBQueries {
     public static final String INSERT = "INSERT INTO "+DBTables.USER_TABLE+" (u_name,u_password,u_gender) VALUES(?,?,?)";
     public static final String RETRIEVE_ALL = "SELECT * FROM "+DBTables.USER_TABLE;
+    public static final String ADD_DEPARTMENT = "INSERT INTO "+DBTables.DEPARTMENT+" (dept_name,u_id,u_name) VALUES (?,?,?)";
 }

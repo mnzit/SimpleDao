@@ -11,4 +11,5 @@ package com.mnzit.simpledao.backend.util;
  */
 public class DBTables {
    public static final String USER_TABLE = "user_detail";
+   public static final String DEPARTMENT = "department";
 }

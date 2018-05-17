@@ -9,14 +9,15 @@ import com.mnzit.simpledao.backend.dao.UserDAO;
 import com.mnzit.simpledao.backend.dao.daoImpl.UserDAOImpl;
 import com.mnzit.simpledao.backend.model.User;
 
-
 /**
  *
  * @author Dell
  */
 public class AdminForm extends javax.swing.JFrame {
-    User u  = new User();
+
+    User u = new User();
     UserDAO userDao = new UserDAOImpl();
+
     /**
      * Creates new form AdminForm
      */
@@ -38,9 +39,11 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        genderTextField = new javax.swing.JTextField();
         insertBtn = new javax.swing.JButton();
         showAllBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        deptNameTextfield = new javax.swing.JTextField();
+        genderComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,29 +67,33 @@ public class AdminForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Department name");
+
+        genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(insertBtn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1)
+                        .addComponent(jLabel4))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(userNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
-                            .addComponent(passwordTextField)
-                            .addComponent(genderTextField))))
-                .addContainerGap(64, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(showAllBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(showAllBtn)
+                        .addGap(18, 18, 18)
+                        .addComponent(insertBtn))
+                    .addComponent(userNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                    .addComponent(passwordTextField)
+                    .addComponent(deptNameTextfield)
+                    .addComponent(genderComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,36 +109,42 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(genderTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(genderComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(insertBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(showAllBtn)
-                .addContainerGap(390, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(deptNameTextfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(showAllBtn)
+                    .addComponent(insertBtn))
+                .addContainerGap(347, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void insertBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertBtnActionPerformed
-       try{
-//           u.setUid(Integer.parseInt(userIdTextField.getText()));
-           u.setUname(userNameTextField.getText());
-           u.setUpass(passwordTextField.getText());
-           u.setUgender(genderTextField.getText());
-           userDao.createUser(u);
-       }catch(Exception e){
-           System.out.println(e);
-       }
-          
+        try {
+            u.setUname(userNameTextField.getText());
+            u.setUpass(passwordTextField.getText());
+            u.setUgender(genderComboBox.getSelectedItem().toString());
+            u.setDeptname(deptNameTextfield.getText());
+            userDao.createUser(u);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }//GEN-LAST:event_insertBtnActionPerformed
 
     private void showAllBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showAllBtnActionPerformed
-           try{
-               for(User u: userDao.allUser()){
-                   System.out.println("uId: "+u.getUid()+" uName: "+u.getUname()+" uPassword: "+u.getUpass()+" uGender: "+u.getUgender());
-               }
-           }catch(Exception e){System.out.println(e);}
+        try {
+            for (User u : userDao.allUser()) {
+                System.out.println("uId: " + u.getUid() + " uName: " + u.getUname() + " uPassword: " + u.getUpass() + " uGender: " + u.getUgender());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_showAllBtnActionPerformed
 
     /**
@@ -170,8 +183,10 @@ public class AdminForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField genderTextField;
+    private javax.swing.JTextField deptNameTextfield;
+    private javax.swing.JComboBox<String> genderComboBox;
     private javax.swing.JButton insertBtn;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
